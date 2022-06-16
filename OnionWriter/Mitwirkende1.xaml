@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="Test.BlankPage1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Test"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1500" MaxHeight="825" MaxWidth="1500" MinHeight="825" MinWidth="150" Height="825" ManipulationMode="None" >
+
+    <Grid Margin="0,0,10,10">
+        <Image Source="Properties\mitwirkende-texteditor.png" VerticalAlignment="Center" HorizontalAlignment="Left" Width="auto"></Image>
+
+    </Grid>
+</Page>

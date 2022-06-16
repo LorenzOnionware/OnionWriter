@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="Test.BlankPage2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Test"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="Black">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="610"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+            <ComboBox x:Name="PrinterBox" Width="500" Height="70"></ComboBox>
+            <Image Height="185" Width="100"></Image>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.RowSpan="3" Grid.Column="1">
+            <RichTextBlock Name="PrintDialogTxtBlock"></RichTextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="3">
+            <Button x:Name="StartPrinting" Background="DarkGray" Margin="30,0" Foreground="White" Content="Print" FontSize="30" FontWeight="Bold"  Height="60" Width="150"/>
+            <Button x:Name="cancelPrinting" Click="cancelPrinting_Click" Content="Cancel" Margin="100,0" FontSize="30" FontWeight="Bold" Background="DarkGray" Foreground="White" Height="60" Width="150"></Button>
+        </StackPanel>
+    </Grid>
+</Page>
