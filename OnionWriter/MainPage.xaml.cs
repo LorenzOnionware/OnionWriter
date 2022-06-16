@@ -152,6 +152,7 @@ namespace Test
                 Debug.WriteLine(filepath);
                 filepath = (string)null;
             }
+            else return;
             try
             {
                 IBuffer buffer = await FileIO.ReadBufferAsync((IStorageFile)file);
@@ -328,15 +329,20 @@ namespace Test
                 FileActivatedEventArgs faileInfo = (FileActivatedEventArgs)b;
                 OpenAssociadetFile(faileInfo);
             }
-            // Register for PrintTaskRequested event
-            printMan = PrintManager.GetForCurrentView();
-            printMan.PrintTaskRequested += PrintTaskRequested;
-            // Build a PrintDocument and register for callbacks
-            printDoc = new PrintDocument();
-            printDocSource = printDoc.DocumentSource;
-            printDoc.Paginate += Paginate;
-            printDoc.GetPreviewPage += GetPreviewPage;
-            printDoc.AddPages += AddPages;
+
+            try
+            {
+                // Register for PrintTaskRequested event
+                printMan = PrintManager.GetForCurrentView();
+                printMan.PrintTaskRequested += PrintTaskRequested;
+                // Build a PrintDocument and register for callbacks
+                printDoc = new PrintDocument();
+                printDocSource = printDoc.DocumentSource;
+                printDoc.Paginate += Paginate;
+                printDoc.GetPreviewPage += GetPreviewPage;
+                printDoc.AddPages += AddPages;
+            }
+            catch (InvalidOperationException) { Debug.WriteLine("InvalidOperation triggered."); }
         }
         private async void Print_Click(object sender, RoutedEventArgs e)
         {
