@@ -11,7 +11,7 @@ xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
 
 	<Identity
 	  Name="84c71415-d1f8-40d1-ab23-7e964860b71a"
-	  Publisher="CN=OnionWare"
+	  Publisher="CN=TempCert"
 	  Version="0.5.5.0" />
 
 	<mp:PhoneIdentity PhoneProductId="84c71415-d1f8-40d1-ab23-7e964860b71a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
@@ -35,10 +35,10 @@ xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
 		  Executable="$targetnametoken$.exe"
 		  EntryPoint="Test.App">
 			<uap:VisualElements
-			  DisplayName="Test"
+			  DisplayName="OnionWriter"
 			  Square150x150Logo="Assets\Square150x150Logo.png"
 			  Square44x44Logo="Assets\Square44x44Logo.png"
-			  Description="Test"
+			  Description="A powerful and easy-to-use text editor for Windows developed by Lorenz Otto at OnionWare"
 			  BackgroundColor="transparent">
 				<uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="OnionEditor" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
 					<uap:ShowNameOnTiles>

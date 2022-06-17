@@ -7,79 +7,93 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="DarkGray">
     <Page.Resources>
         <ResourceDictionary Source="ExternalResources.xaml"/>
     </Page.Resources>
 
     <Grid x:Name="GroundGrid">
         <Grid.RowDefinitions>
+            <RowDefinition Height="48"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="364" ></ColumnDefinition>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+            <TextBlock VerticalAlignment="Center" Margin="32,0">OnionWriter</TextBlock>
+        </Grid>
 
-        <RichEditBox DragOver="TxtBox_DragOver" DragLeave="TxtBox_DragEnter" x:Name="TxtBox" Grid.ColumnSpan="2" Style="{StaticResource NewRichEditBoxStyle}" FontSize="20" Foreground="Black" Background="DarkGray" SelectionHighlightColor="Blue" Grid.Row="1" AllowDrop="True">
-        </RichEditBox>
-        <controls:WrapPanel x:Name="StackOne" Orientation="Horizontal">
-            <DropDownButton x:Name="FileButton" Background="Gray" Margin="6,0" Width="60" Content="File">
-                <DropDownButton.Flyout>
-                    <MenuFlyout Placement="Bottom">
-                        <MenuFlyoutItem Text="Open" Click="OpennFile_Click">
-                            <MenuFlyoutItem.KeyboardAccelerators>
-                                <KeyboardAccelerator
+        <Grid Grid.Row="1">
+            <MenuBar Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                <MenuBarItem Title="File">
+                    <MenuFlyoutItem Text="Open" Click="OpennFile_Click">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator
                                     Modifiers="Control"
                                     Key="O">
-                                </KeyboardAccelerator>
-                            </MenuFlyoutItem.KeyboardAccelerators>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutItem Text="Save" Click="SaveFile_Click">
-                            <MenuFlyoutItem.KeyboardAccelerators>
-                                <KeyboardAccelerator
+                            </KeyboardAccelerator>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Save" Click="SaveFile_Click">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator
                                     Modifiers="Control"
                                     Key="S">
-                                </KeyboardAccelerator>
-                            </MenuFlyoutItem.KeyboardAccelerators>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutItem Text="Print" Click="Print_Click">
-                            <MenuFlyoutItem.KeyboardAccelerators>
-                                <KeyboardAccelerator Modifiers="Control" Key="P"></KeyboardAccelerator>
-                            </MenuFlyoutItem.KeyboardAccelerators>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutItem Text="New" Click="New_Click">
-                            <MenuFlyoutItem.KeyboardAccelerators>
-                                <KeyboardAccelerator Modifiers="Control" Key="N"></KeyboardAccelerator>
-                            </MenuFlyoutItem.KeyboardAccelerators>
-                        </MenuFlyoutItem>
-                    </MenuFlyout>
-                </DropDownButton.Flyout>
-            </DropDownButton>
+                            </KeyboardAccelerator>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Print" Click="Print_Click">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="P"></KeyboardAccelerator>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="New" Click="New_Click">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="N"></KeyboardAccelerator>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
+            </MenuBar>
+        </Grid>
+        
 
-
-
-
-            <DropDownButton x:Name="EditButton" Background="Gray" Content="Edit">
-                <DropDownButton.Flyout>
-                    <MenuFlyout Placement="Bottom">
-                        <MenuFlyoutItem Text="Color" Click="color_Click" />
-                    </MenuFlyout>
-                </DropDownButton.Flyout>
-            </DropDownButton>
-            <Slider x:Name="txtgrosse" Minimum="16" Margin="10,12" Width="120" Foreground="Blue" Background="Gray" ValueChanged="txtgrosse_ValueChanged" ></Slider>
-            <Button x:Name="BoldButton" Content="B" Height="35"  FontWeight="Bold" FontSize="15" Background="Gray" Width="39" Click="Bold_Click" />
-            <Button x:Name="ItalicButton" Content="I" Height="35" Background="Gray" Margin="6,0" FontWeight="Bold" FontStyle="Italic" FontSize="15" Width="39" Click="Italic_Click" />
-            <ComboBox x:Name="Fonts" Width="200" Margin="15" SelectionChanged="Fonts_SelectionChanged" ManipulationMode="None">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="x:String">
-                        <TextBlock Text="{x:Bind}" FontFamily="{x:Bind}"></TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>    
-            </ComboBox>
-        </controls:WrapPanel>
-        <StackPanel x:Name="StackTwo" Grid.Column="1" Grid.Row="0">
+        <RichEditBox DragOver="TxtBox_DragOver" DragLeave="TxtBox_DragEnter" x:Name="TxtBox" Style="{StaticResource NewRichEditBoxStyle}" FontSize="20" Foreground="Black" Background="DarkGray" SelectionHighlightColor="Blue" Grid.Row="3" AllowDrop="True">
+        </RichEditBox>
+        <Grid Grid.Row="2" CornerRadius="0,0,15,15" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+            <controls:WrapPanel x:Name="StackOne" VerticalSpacing="5" HorizontalSpacing="10" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Spacing="5" Margin="20,20,0,0">
+                    <Button x:Name="BoldButton" Content="B" FontWeight="Bold" FontSize="15" Click="Bold_Click" VerticalAlignment="Center" Width="45"/>
+                    <Button x:Name="ItalicButton" Content="I" FontWeight="Bold" FontStyle="Italic" FontSize="15" Click="Italic_Click" Width="45"/>
+                    <Button Click="color_Click" Width="45">
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
+                    </Button>
+                </StackPanel>
+                <ComboBox x:Name="Fonts" Header="Font" Width="200" Margin="15" SelectionChanged="Fonts_SelectionChanged" ManipulationMode="None">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBlock Text="{x:Bind}" FontFamily="{x:Bind}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox x:Name="FontSize" Header="Font size" SelectedIndex="7" IsEditable="True" VerticalAlignment="Center" SelectionChanged="FontSize_SelectionChanged" TextSubmitted="FontSize_TextSubmitted">
+                    <x:Int32>2</x:Int32>
+                    <x:Int32>4</x:Int32>
+                    <x:Int32>8</x:Int32>
+                    <x:Int32>10</x:Int32>
+                    <x:Int32>12</x:Int32>
+                    <x:Int32>13</x:Int32>
+                    <x:Int32>14</x:Int32>
+                    <x:Int32>18</x:Int32>
+                    <x:Int32>20</x:Int32>
+                    <x:Int32>24</x:Int32>
+                    <x:Int32>32</x:Int32>
+                    <x:Int32>48</x:Int32>
+                    <x:Int32>72</x:Int32>
+                </ComboBox>
+            </controls:WrapPanel>
+        </Grid>
+        
+        <StackPanel x:Name="StackTwo" Visibility="Collapsed">
             <Button x:Name="Mitwirkende" Height="27" Width="65" Content="Mitwirkende" Margin="2,2"  FontSize="8" HorizontalAlignment="Right" Click="Mitwirkende_Click" />
         </StackPanel>
     </Grid>

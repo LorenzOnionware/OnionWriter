@@ -68,6 +68,8 @@ namespace Test
             Fonts.ItemsSource = fonts;
             Fonts.SelectedIndex = 0;
             TxtBox.FontFamily = new Windows.UI.Xaml.Media.FontFamily(Fonts.SelectedItem.ToString());
+            ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             Task.Run(ThemeAutoChange);
         }
 
@@ -96,8 +98,6 @@ namespace Test
                         GroundGrid.Background = Lightmodebrush2;
                         StackOne.Background = Lightmodebrush1;
                         StackTwo.Background = Lightmodebrush1;
-                        FileButton.Foreground = Lightmodebrush2;
-                        EditButton.Foreground = Lightmodebrush2;
                         ItalicButton.Foreground = Lightmodebrush2;
                         BoldButton.Foreground = Lightmodebrush2;
                         Mitwirkende.Foreground = Lightmodebrush2;
@@ -112,8 +112,6 @@ namespace Test
                         GroundGrid.Background = Lightmodebrush1;
                         StackOne.Background = Lightmodebrush2;
                         StackTwo.Background = Lightmodebrush2;
-                        FileButton.Foreground = Lightmodebrush1;
-                        EditButton.Foreground = Lightmodebrush1;
                         ItalicButton.Foreground = Lightmodebrush1;
                         BoldButton.Foreground = Lightmodebrush1;
                         Mitwirkende.Foreground = Lightmodebrush1;
@@ -124,7 +122,7 @@ namespace Test
                     await Task.Delay(3000);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ContentDialog contentDialog = new ContentDialog();
                 contentDialog.Title = "Couldn´t run the application";
@@ -142,7 +140,7 @@ namespace Test
         //open/save/new file/DragnDrop
         #region
 
-        public async Task OpenFile (IStorageFile file)
+        public async Task OpenFile(IStorageFile file)
         {
             if (file != null)
             {
@@ -174,7 +172,7 @@ namespace Test
                 ContentDialogResult contentDialogResult = await errorDialog.ShowAsync();
                 errorDialog = (ContentDialog)null;
             }
-            
+
             file = (StorageFile)null;
         }
         private async void OpennFile_Click(object sender, RoutedEventArgs e) => await this.OpenFileClickTask();
@@ -448,21 +446,7 @@ namespace Test
             TxtBox.FontFamily = new Windows.UI.Xaml.Media.FontFamily(e.AddedItems[0].ToString());
 
         }
-        public void txtgrosse_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            float b1 = (float)txtgrosse.Value;
-            ITextRange Range = TxtBox.Document.Selection;
-            int lo = TxtBox.Document.Selection.Length;
-            if (lo == 0)
-            {
-                TxtBox.FontSize = txtgrosse.Value;
-            }
-            else
-            {
-                Windows.UI.Text.ITextCharacterFormat charFormatting = Range.CharacterFormat;
-                charFormatting.Size = b1;
-            }
-        }
+
         private void Italic_Click(object sender, RoutedEventArgs e)
         {
             if (italic1 == false)
@@ -542,23 +526,47 @@ namespace Test
                                     ViewSizePreference.Default);
                             });
         }
-            
-           
-            
+
+
+
         public async void OpenAssociadetFile(FileActivatedEventArgs file)
         {
             IStorageItem[] paths = file.Files.Where(i => i != null && (Path.GetExtension(i.Path) == ".rtf" || Path.GetExtension(i.Path) == ".txt")).ToArray();
             if (paths.Length == 1)
             {
-               
+
                 await OpenFile((IStorageFile)paths[0]);
             }
             else
             {
 
             }
- 
+
         }
 
+        //Updates the FontSize of the EditBox
+        private void FontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(float.TryParse(e?.AddedItems?.First()?.ToString(), out float value) && value > 0))
+                return;
+
+            var range = TxtBox.Document.Selection;
+            int selectionLen = TxtBox.Document.Selection.Length;
+
+            if (selectionLen == 0)
+            {
+                TxtBox.FontSize = value;
+            }
+            else
+            {
+                range.CharacterFormat.Size = value;
+            }
+        }
+
+        //Resets the value of the ComboBox, when the new value isn't a number
+        private void FontSize_TextSubmitted(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
+        {
+            args.Handled = !float.TryParse(args.Text, out _);
+        }
     }
 }
