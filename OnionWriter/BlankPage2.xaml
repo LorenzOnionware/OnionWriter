@@ -5,29 +5,92 @@
     xmlns:local="using:Test"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="Black">
+    Background="DarkGray">
+    <Page.Resources>
+        <ResourceDictionary Source="ExternalResources.xaml"/>
+    </Page.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="600"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    <Grid x:Name="GroundGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"></RowDefinition>
-            <RowDefinition Height="610"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-            <ComboBox x:Name="PrinterBox" Width="500" Height="70"></ComboBox>
-            <Image Height="185" Width="100"></Image>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.RowSpan="3" Grid.Column="1">
-            <RichTextBlock Name="PrintDialogTxtBlock"></RichTextBlock>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="3">
-            <Button x:Name="StartPrinting" Background="DarkGray" Margin="30,0" Foreground="White" Content="Print" FontSize="30" FontWeight="Bold"  Height="60" Width="150"/>
-            <Button x:Name="cancelPrinting" Click="cancelPrinting_Click" Content="Cancel" Margin="100,0" FontSize="30" FontWeight="Bold" Background="DarkGray" Foreground="White" Height="60" Width="150"></Button>
+        <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        </Grid>
+
+        <RichEditBox DragOver="TxtBox_DragOver" DragLeave="TxtBox_DragEnter" x:Name="TxtBox" Style="{StaticResource NewRichEditBoxStyle}" FontSize="20" Foreground="Black" Background="DarkGray" SelectionHighlightColor="Blue" Grid.Row="3" AllowDrop="True">
+        </RichEditBox>
+        <Grid Grid.Row="1">
+        </Grid>
+        <Grid Grid.Row="2" CornerRadius="0,0,15,15" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+            <controls:WrapPanel x:Name="StackOne" VerticalSpacing="5" HorizontalSpacing="10" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Spacing="5" Margin="20,20,0,0">
+                    <Button Content="Options">
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="Open" Click="OpennFile_Click">
+                                    <MenuFlyoutItem.KeyboardAccelerators>
+                                        <KeyboardAccelerator Modifiers="Control" Key="O">
+                                        </KeyboardAccelerator>
+                                    </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem  Text="Save" Click="SaveFile_Click">
+                                    <MenuFlyoutItem.KeyboardAccelerators>
+                                        <KeyboardAccelerator Modifiers="Control" Key="S"/>
+                                    </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                                <MenuFlyoutItem Text="Print" Click="Print_Click">
+                                    <MenuFlyoutItem.KeyboardAccelerators>
+                                        <KeyboardAccelerator Modifiers="Control" Key="P"></KeyboardAccelerator>
+                                    </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                                <MenuFlyoutItem  Text="New" Click="New_Click">
+                                    <MenuFlyoutItem.KeyboardAccelerators>
+                                        <KeyboardAccelerator Modifiers="Control" Key="N"></KeyboardAccelerator>
+                                    </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button x:Name="BoldButton" Content="B" FontWeight="Bold" FontSize="15" Click="Bold_Click" VerticalAlignment="Center" Width="45"/>
+                    <Button x:Name="ItalicButton" Content="I" FontWeight="Bold" FontStyle="Italic" FontSize="15" Click="Italic_Click" Width="45"/>
+                    <Button Click="color_Click" Width="45">
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
+                    </Button>
+                </StackPanel>
+                <ComboBox x:Name="Fonts" Header="Font" Width="200" Margin="15" SelectionChanged="Fonts_SelectionChanged" ManipulationMode="None">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBlock Text="{x:Bind}" FontFamily="{x:Bind}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox x:Name="FontSize" Header="Font size" SelectedIndex="7" IsEditable="True" VerticalAlignment="Center" SelectionChanged="FontSize_SelectionChanged" TextSubmitted="FontSize_TextSubmitted">
+                    <x:Int32>2</x:Int32>
+                    <x:Int32>4</x:Int32>
+                    <x:Int32>8</x:Int32>
+                    <x:Int32>10</x:Int32>
+                    <x:Int32>12</x:Int32>
+                    <x:Int32>13</x:Int32>
+                    <x:Int32>14</x:Int32>
+                    <x:Int32>18</x:Int32>
+                    <x:Int32>20</x:Int32>
+                    <x:Int32>24</x:Int32>
+                    <x:Int32>32</x:Int32>
+                    <x:Int32>48</x:Int32>
+                    <x:Int32>72</x:Int32>
+                </ComboBox>
+            </controls:WrapPanel>
+
+        </Grid>
+
+        <StackPanel x:Name="StackTwo" Visibility="Collapsed">
+            <Button x:Name="Mitwirkende" Height="27" Width="65" Content="Mitwirkende" Margin="2,2"  FontSize="8" HorizontalAlignment="Right" Click="Mitwirkende_Click" />
         </StackPanel>
     </Grid>
 </Page>
