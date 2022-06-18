@@ -101,11 +101,8 @@ namespace Test
                         TxtBox.Background = Lightmodebrush3;
                         GroundGrid.Background = Lightmodebrush2;
                         StackOne.Background = Lightmodebrush1;
-                        StackTwo.Background = Lightmodebrush1;
                         ItalicButton.Foreground = Lightmodebrush2;
                         BoldButton.Foreground = Lightmodebrush2;
-                        Mitwirkende.Foreground = Lightmodebrush2;
-                        Mitwirkende.Background = Lightmodebrush3;
                         TxtBox.BorderBrush = new SolidColorBrush(Colors.Blue);
                     }
                     else
@@ -115,11 +112,8 @@ namespace Test
                         TxtBox.Background = Lightmodebrush3;
                         GroundGrid.Background = Lightmodebrush1;
                         StackOne.Background = Lightmodebrush2;
-                        StackTwo.Background = Lightmodebrush2;
                         ItalicButton.Foreground = Lightmodebrush1;
                         BoldButton.Foreground = Lightmodebrush1;
-                        Mitwirkende.Foreground = Lightmodebrush1;
-                        Mitwirkende.Background = Lightmodebrush3;
                         TxtBox.BorderBrush = new SolidColorBrush(Colors.Gray);
                     }
 
@@ -149,7 +143,7 @@ namespace Test
             if (file != null)
             {
                 string filepath = file.Path.ToString();
-                if (!filepath.EndsWith(".odt"));                   
+                if (!filepath.EndsWith(".odt")) ;
                 Debug.WriteLine(filepath);
                 filepath = (string)null;
             }
@@ -193,7 +187,7 @@ namespace Test
         }
 
         private async void SaveFile_Click(object sender, RoutedEventArgs e) => await this.SaveFileClickTask();
-        private async Task SaveFileClickTask()
+        public async Task SaveFileClickTask()
         {
             FileSavePicker savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
@@ -263,7 +257,7 @@ namespace Test
                     items = (IReadOnlyList<IStorageItem>)null;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ContentDialog contentDialog = new ContentDialog();
                 contentDialog.Title = "Open file error";
@@ -355,9 +349,9 @@ namespace Test
                 try
                 {
                     // Show print UI
-                    
+
                     await PrintManager.ShowPrintUIAsync();
-                    
+
                 }
                 catch
                 {
@@ -406,7 +400,7 @@ namespace Test
 
         public async Task SetBack()
         {
-            for(byte i = 0; i != 3; i++)
+            for (byte i = 0; i != 3; i++)
             {
                 if (i == 2)
                 {
@@ -516,35 +510,9 @@ namespace Test
 
         }
         #endregion
-        private async void Mitwirkende_Click(object sender, RoutedEventArgs e)
-        {
-            var currentAV = ApplicationView.GetForCurrentView();
-            var newAV = CoreApplication.CreateNewView();
-            await newAV.Dispatcher.RunAsync(
-                            CoreDispatcherPriority.Normal,
-                            async () =>
-                            {
-                                var newWindow = Window.Current;
-                                var newAppView = ApplicationView.GetForCurrentView();
-                                newAppView.Title = "New window";
-                                newAppView.SetPreferredMinSize(new Windows.Foundation.Size(1500, 825));
-                                newAppView.VisibleBoundsChanged += (o, args) => newAppView.TryResizeView(new Windows.Foundation.Size(1500, 825));
 
-
-                                var frame = new Frame();
-                                frame.Navigate(typeof(BlankPage1), null);
-                                newWindow.Content = frame;
-                                newWindow.Activate();
-
-                                await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
-                                    newAppView.Id,
-                                    ViewSizePreference.Default,
-                                    currentAV.Id,
-                                    ViewSizePreference.Default);
-                            });
-        }
-
-
+        //other shit
+        #region
 
         public async void OpenAssociadetFile(FileActivatedEventArgs file)
         {
@@ -585,5 +553,20 @@ namespace Test
         {
             args.Handled = !float.TryParse(args.Text, out _);
         }
+
+        public bool TxtboxIsEmpty()
+        {
+
+            TxtBox.Document.GetText(TextGetOptions.None, out string Text);
+            if (Text.Length <= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

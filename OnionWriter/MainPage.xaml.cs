@@ -62,12 +62,42 @@ namespace Test
             (sender as TabView).TabItems.Add(CreateNewTab(1));
         }
 
-        private void TabView_TabCloseRequested(Microsoft.UI.Xaml.Controls.TabView sender, Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs args)
+        private async void TabView_TabCloseRequested(Microsoft.UI.Xaml.Controls.TabView sender, Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs args)
         {
-        
+
+            var Frame = args.Tab.Content as Frame;
+            var Page = Frame.Content as BlankPage2;
+            bool isEmpty = Page.TxtboxIsEmpty();
+            if (isEmpty == true)
+            {
+                sender.TabItems.Remove(args.Tab);
+            }
+            else
+            {
+
+                ContentDialog contentDialog = new ContentDialog();
+                contentDialog.Title = "Do you want to save your file?";
+                ((ContentControl)contentDialog).Content = "Do you want to save the changes?";
+                contentDialog.PrimaryButtonText = "Save";
+                contentDialog.SecondaryButtonText = "Delete";
+                contentDialog.CloseButtonText = "Cancel";
+                ContentDialog newFileDialog = contentDialog;
+                ContentDialogResult result = await newFileDialog.ShowAsync();
+                if (result == ContentDialogResult.Primary)
+                    await Page.SaveFileClickTask();
+                else if (result == ContentDialogResult.Secondary)
+                {
+                    sender.TabItems.Remove(args.Tab);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             sender.TabItems.Remove(args.Tab);
             var summeoftabs = Tabviev1.TabItems.Count;
-            if(summeoftabs == 0)
+            if (summeoftabs == 0)
             {
                 Application.Current.Exit();
             }

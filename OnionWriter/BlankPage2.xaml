@@ -91,9 +91,5 @@
             </controls:WrapPanel>
 
         </Grid>
-
-        <StackPanel x:Name="StackTwo" Visibility="Collapsed">
-            <Button x:Name="Mitwirkende" Height="27" Width="65" Content="Mitwirkende" Margin="2,2"  FontSize="8" HorizontalAlignment="Right" Click="Mitwirkende_Click" />
-        </StackPanel>
     </Grid>
 </Page>
