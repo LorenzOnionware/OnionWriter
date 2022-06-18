@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
@@ -26,6 +27,11 @@ namespace Test
         public BlankPage1()
         {
             this.InitializeComponent();
+        }
+
+        internal Task IsEmptyEvent()
+        {
+            throw new NotImplementedException();
         }
     }
 }

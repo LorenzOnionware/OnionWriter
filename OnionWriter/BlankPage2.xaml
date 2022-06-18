@@ -8,11 +8,11 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="Black">
-    
+
     <Page.Resources>
         <ResourceDictionary Source="ExternalResources.xaml"/>
     </Page.Resources>
-    
+
     <Grid x:Name="GroundGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -30,6 +30,15 @@
         <Grid Grid.Row="1">
         </Grid>
         <Grid Grid.Row="2" CornerRadius="0,0,15,15" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image PointerPressed="Image_PointerPressed" Margin="5,0" Grid.Column="1" Source="Assets/onio.png" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <CompositeTransform Rotation="15.653"/>
+                </Image.RenderTransform>
+            </Image>
             <controls:WrapPanel x:Name="StackOne" VerticalSpacing="5" HorizontalSpacing="10" Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Spacing="5" Margin="20,20,0,0">
                     <Button Content="File">

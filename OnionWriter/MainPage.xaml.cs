@@ -48,7 +48,7 @@ namespace Test
 
     public partial class Page : Windows.UI.Xaml.Controls.Page
     {
-
+        public int Counter;
 
         public Page()
         {
@@ -59,7 +59,9 @@ namespace Test
 
         private void TabView_AddTabButtonClick(Microsoft.UI.Xaml.Controls.TabView sender, object args)
         {
-            (sender as TabView).TabItems.Add(CreateNewTab(1));
+
+            Counter ++;
+            (sender as TabView).TabItems.Add(CreateNewTab(Counter));
         }
 
         private async void TabView_TabCloseRequested(Microsoft.UI.Xaml.Controls.TabView sender, Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs args)
@@ -105,6 +107,7 @@ namespace Test
 
         private void TabView_Loaded(object sender, RoutedEventArgs e)
         {
+            Counter ++;
             (sender as TabView).TabItems.Add(CreateNewTab(1));
         }
 

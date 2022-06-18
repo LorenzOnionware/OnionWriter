@@ -65,6 +65,7 @@ namespace Test
         }
         //Variables
         #region
+        public string abg;
         public bool italic1 = false;
         public bool bold1 = false;
         public bool underlined1 = false;
@@ -173,17 +174,19 @@ namespace Test
             file = (StorageFile)null;
         }
         private async void OpennFile_Click(object sender, RoutedEventArgs e) => await this.OpenFileClickTask();
-        private async Task OpenFileClickTask()
+        public async Task OpenFileClickTask()
         {
             FileOpenPicker open = new FileOpenPicker();
             open.ViewMode = PickerViewMode.Thumbnail;
             open.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             open.FileTypeFilter.Add(".rtf");
             open.FileTypeFilter.Add(".txt");
-            open.FileTypeFilter.Add(".docx");
+            //open.FileTypeFilter.Add(".docx");
             IStorageFile file = await open.PickSingleFileAsync();
             await OpenFile(file);
+            abg = file.Path;
             open = (FileOpenPicker)null;
+
         }
 
         private async void SaveFile_Click(object sender, RoutedEventArgs e) => await this.SaveFileClickTask();
@@ -216,8 +219,6 @@ namespace Test
                 file = (StorageFile)null;
             }
         }
-
-
 
         private void TxtBox_DragOver(object sender, DragEventArgs e)
         {
@@ -568,5 +569,16 @@ namespace Test
             }
         }
         #endregion
+
+        private async void Image_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            ContentDialog contentDialog = new ContentDialog();
+            contentDialog.Title = "Created By Onionware from:";
+            ((ContentControl)contentDialog).Content = "Lorenz O.\nund Jaden N.";
+            contentDialog.PrimaryButtonText = "OK";
+            ContentDialog ErrorDialog = contentDialog;
+            ContentDialogResult contentDialogResult = await ErrorDialog.ShowAsync();
+            ErrorDialog = (ContentDialog)null;
+        }
     }
 }
