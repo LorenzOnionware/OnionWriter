@@ -52,18 +52,25 @@ namespace Test
 
         public Page()
         {
+            InitializeComponent();
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
         }
 
         private void TabView_AddTabButtonClick(Microsoft.UI.Xaml.Controls.TabView sender, object args)
         {
-            sender.TabItems.Add(CreateNewTab(sender.TabItems.Count));
+            (sender as TabView).TabItems.Add(CreateNewTab(1));
         }
 
         private void TabView_TabCloseRequested(Microsoft.UI.Xaml.Controls.TabView sender, Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs args)
         {
+        
             sender.TabItems.Remove(args.Tab);
+            var summeoftabs = Tabviev1.TabItems.Count;
+            if(summeoftabs == 0)
+            {
+                Application.Current.Exit();
+            }
         }
 
         private void TabView_Loaded(object sender, RoutedEventArgs e)

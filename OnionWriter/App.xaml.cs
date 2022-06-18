@@ -68,7 +68,7 @@ namespace Test
                     // Wenn der Navigationsstapel nicht wiederhergestellt wird, zur ersten Seite navigieren
                     // und die neue Seite konfigurieren, indem die erforderlichen Informationen als Navigationsparameter
                     // übergeben werden
-                    rootFrame.Navigate(typeof(BlankPage2), e.Arguments);
+                    rootFrame.Navigate(typeof(Page), e.Arguments);
                 }
                 // Sicherstellen, dass das aktuelle Fenster aktiv ist
                 Window.Current.Activate();
@@ -111,7 +111,7 @@ namespace Test
             base.OnFileActivated(args);
 
             var rootFrame = new Frame();
-            rootFrame.Navigate(typeof(Page), args);
+            rootFrame.Navigate(typeof(BlankPage2), args);
             Window.Current.Content = rootFrame;
             Window.Current.Activate();
         }

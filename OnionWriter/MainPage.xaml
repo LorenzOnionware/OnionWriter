@@ -7,10 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d">
-
+    mc:Ignorable="d"
+    Background="Transparent">
     <Grid>
-        <muxc:TabView Foreground="Black" Background="Green">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="OnionWriter" VerticalAlignment="Center" Margin="10,0"></TextBlock>
+        <muxc:TabView Grid.Row="1" Name="Tabviev1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" Loaded="TabView_Loaded" TabCloseRequested="TabView_TabCloseRequested" AddTabButtonClick="TabView_AddTabButtonClick" CloseButtonOverlayMode="OnPointerOver">
         </muxc:TabView>
     </Grid>
+
+
 </Page>

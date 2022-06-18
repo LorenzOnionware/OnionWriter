@@ -7,11 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="DarkGray">
+    Background="Black">
+    
     <Page.Resources>
         <ResourceDictionary Source="ExternalResources.xaml"/>
     </Page.Resources>
-
+    
     <Grid x:Name="GroundGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -21,6 +22,8 @@
         </Grid.RowDefinitions>
         <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
         </Grid>
+        <Grid Grid.Row="0" Background="Transparent">
+        </Grid>
 
         <RichEditBox DragOver="TxtBox_DragOver" DragLeave="TxtBox_DragEnter" x:Name="TxtBox" Style="{StaticResource NewRichEditBoxStyle}" FontSize="20" Foreground="Black" Background="DarkGray" SelectionHighlightColor="Blue" Grid.Row="3" AllowDrop="True">
         </RichEditBox>
@@ -29,7 +32,7 @@
         <Grid Grid.Row="2" CornerRadius="0,0,15,15" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
             <controls:WrapPanel x:Name="StackOne" VerticalSpacing="5" HorizontalSpacing="10" Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Spacing="5" Margin="20,20,0,0">
-                    <Button Content="Options">
+                    <Button Content="File">
                         <Button.Flyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Text="Open" Click="OpennFile_Click">
