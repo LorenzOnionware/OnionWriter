@@ -59,9 +59,20 @@ namespace Test
 
         private void TabView_AddTabButtonClick(Microsoft.UI.Xaml.Controls.TabView sender, object args)
         {
+            int number = 1;
+            var tabItems = sender.TabItems.ToArray();
+            foreach (TabViewItem i in tabItems)
+            {
 
-            Counter ++;
-            (sender as TabView).TabItems.Add(CreateNewTab(Counter));
+                int n = int.Parse(new string(i.Header.ToString().Where(c => char.IsNumber(c)).ToArray()));
+                if(n > number)
+                {
+                    number = n;
+                }
+                
+            }
+            number ++;
+            (sender as TabView).TabItems.Add(CreateNewTab(number));
         }
 
         private async void TabView_TabCloseRequested(Microsoft.UI.Xaml.Controls.TabView sender, Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs args)
@@ -113,6 +124,7 @@ namespace Test
 
         private TabViewItem CreateNewTab(int index)
         {
+
             TabViewItem newItem = new TabViewItem();
 
             newItem.Header = $"Document {index}";
