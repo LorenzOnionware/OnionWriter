@@ -20,12 +20,8 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        </Grid>
-        <Grid Grid.Row="0" Background="Transparent">
-        </Grid>
 
-        <RichEditBox DragOver="TxtBox_DragOver" DragLeave="TxtBox_DragEnter" x:Name="TxtBox" Style="{StaticResource NewRichEditBoxStyle}" FontSize="20" Foreground="Black" Background="DarkGray" SelectionHighlightColor="Blue" Grid.Row="3" AllowDrop="True">
+        <RichEditBox DragOver="TxtBox_DragOver" DragLeave="TxtBox_DragEnter" x:Name="TxtBox" Style="{StaticResource NewRichEditBoxStyle}" FontSize="20" Foreground="Black" Background="DarkGray" SelectionHighlightColor="{ThemeResource SystemControlHighlightAccentBrush}" Grid.Row="3" AllowDrop="True">
         </RichEditBox>
         <Grid Grid.Row="1">
         </Grid>
@@ -36,7 +32,7 @@
             </Grid.ColumnDefinitions>
             <Image PointerPressed="Image_PointerPressed" Margin="5,0" Grid.Column="1" Source="Assets/onio.png" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
-                    <CompositeTransform Rotation="15.653"/>
+                    <CompositeTransform Rotation="10"/>
                 </Image.RenderTransform>
             </Image>
             <controls:WrapPanel x:Name="StackOne" VerticalSpacing="5" HorizontalSpacing="10" Orientation="Horizontal">
@@ -70,7 +66,10 @@
                         </Button.Flyout>
                     </Button>
                     <Button x:Name="BoldButton" Content="B" FontWeight="Bold" FontSize="15" Click="Bold_Click" VerticalAlignment="Center" Width="45"/>
-                    <Button x:Name="ItalicButton" Content="I" FontWeight="Bold" FontStyle="Italic" FontSize="15" Click="Italic_Click" Width="45"/>
+                    <Button x:Name="ItalicButton" Content="I" FontStyle="Italic" FontSize="15" Click="Italic_Click" Width="45"/>
+                    <Button x:Name="UnderlineButton" FontSize="15" Click="Underline_Click" Width="45">
+                        <TextBlock TextDecorations="Underline">U</TextBlock>
+                    </Button>
                     <Button Click="color_Click" Width="45">
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
                     </Button>

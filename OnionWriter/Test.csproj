@@ -19,7 +19,7 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <PackageCertificateThumbprint>3CDCF7BC011CFC65C7D45F07BD8A5637B14D6E8C</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>BEF7F70A12B75D645E4B80E3148DB6BD650EC03D</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxPackageDir>C:\Users\loren\Desktop\</AppxPackageDir>

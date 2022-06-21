@@ -52,9 +52,9 @@ namespace Test
             this.InitializeComponent();
             var fonts = Microsoft.Graphics.Canvas.Text.CanvasTextFormat.GetSystemFontFamilies();
             Fonts.ItemsSource = fonts;
-            if (Fonts.Items.Contains("Arial") == true)
+            if (Fonts.Items.Contains("Calibri") == true)
             {
-                Fonts.SelectedItem = "Arial";
+                Fonts.SelectedItem = "Calibri";
             }
             else
             {
@@ -473,6 +473,23 @@ namespace Test
             }
         }
 
+        private void Underline_Click(object sender, RoutedEventArgs e)
+        {
+            var charF = TxtBox.Document.GetDefaultCharacterFormat();
+            if (underlined1)
+            {
+                charF.Underline = UnderlineType.None;
+                underlined1 = false;
+            }
+            else
+            {
+                charF.Underline = UnderlineType.Single;
+                underlined1 = true;
+            }
+
+            TxtBox.Document.SetDefaultCharacterFormat(charF);
+        }
+
         private void Bold_Click(object sender, RoutedEventArgs e)
         {
             if (bold1 == false)
@@ -490,7 +507,7 @@ namespace Test
         {
             var dlg = new ContentDialog();
             dlg.Content = new Windows.UI.Xaml.Controls.ColorPicker();
-            dlg.PrimaryButtonText = "okay";
+            dlg.PrimaryButtonText = "Apply";
             dlg.SecondaryButtonText = "Cancel";
             await dlg.ShowAsync();
             Windows.UI.Text.ITextSelection selection = TxtBox.Document.Selection;
@@ -573,8 +590,8 @@ namespace Test
         private async void Image_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             ContentDialog contentDialog = new ContentDialog();
-            contentDialog.Title = "Created By Onionware from:";
-            ((ContentControl)contentDialog).Content = "Lorenz O.\nund Jaden N.";
+            contentDialog.Title = "Developed by Onionware from:";
+            ((ContentControl)contentDialog).Content = "Lorenz O.\nand\nJaden N.";
             contentDialog.PrimaryButtonText = "OK";
             ContentDialog ErrorDialog = contentDialog;
             ContentDialogResult contentDialogResult = await ErrorDialog.ShowAsync();
