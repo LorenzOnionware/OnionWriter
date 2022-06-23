@@ -45,6 +45,7 @@ namespace Test
             TxtBox.FontFamily = new Windows.UI.Xaml.Media.FontFamily(Fonts.SelectedItem.ToString());
             Task.Run(ThemeAutoChange);
         }
+
         //Variables
         #region
         public string abg;
@@ -369,6 +370,7 @@ namespace Test
 
             // Handle PrintTask.Completed to catch failed print jobs
             printTask.Completed += PrintTaskCompleted;
+
         }
         private void PrintTaskSourceRequrested(PrintTaskSourceRequestedArgs args)
         {
@@ -397,38 +399,40 @@ namespace Test
         {
             // Provide a UIElement as the print preview.
             printDoc.SetPreviewPage(e.PageNumber, this.TxtBox);
-            await SetBack();
+
         }
-        private void AddPages(object sender, AddPagesEventArgs e)
+        private async void AddPages(object sender, AddPagesEventArgs e)
         {
             printDoc.AddPage(this.TxtBox);
-
+            await SetBack();
             // Indicate that all of the print pages have been provided
             printDoc.AddPagesComplete();
-            TxtBox.Background = new SolidColorBrush(Colors.DarkGray);
         }
         private async void PrintTaskCompleted(PrintTask sender, PrintTaskCompletedEventArgs args)
         {
-
-            // Notify the user when the print operation fails.
-            if (args.Completion == PrintTaskCompletion.Failed)
-            {
+         
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
 
-                    ContentDialog noPrintingDialog = new ContentDialog()
-                    {
-                        Title = "Printing error",
-                        Content = "\nSorry, failed to print.",
-                        PrimaryButtonText = "OK"
-                    };
-                    await noPrintingDialog.ShowAsync();
+                    if (args.Completion == PrintTaskCompletion.Failed)
+                    {    
+                        await SetBack();
+                        ContentDialog noPrintingDialog = new ContentDialog()
+                        {
+                            Title = "Printing error",
+                            Content = "\nSorry, failed to print.",
+                            PrimaryButtonText = "OK"
+                        };
+                        await noPrintingDialog.ShowAsync();
+                    }
+                    if (args.Completion == PrintTaskCompletion.Canceled){await SetBack();}
+
 
                 });
-
-            }
         }
+        
         #endregion
+
         //Text Edit
         #region
         private void Fonts_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -513,7 +517,16 @@ namespace Test
 
         //other shit
         #region
-
+        private async void Image_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            ContentDialog contentDialog = new ContentDialog();
+            contentDialog.Title = "Developed by Onionware from:";
+            ((ContentControl)contentDialog).Content = "Lorenz O.\nand\nJaden N.";
+            contentDialog.PrimaryButtonText = "OK";
+            ContentDialog ErrorDialog = contentDialog;
+            ContentDialogResult contentDialogResult = await ErrorDialog.ShowAsync();
+            ErrorDialog = (ContentDialog)null;
+        }
         public async void OpenAssociadetFile(FileActivatedEventArgs file)
         {
             IStorageItem[] paths = file.Files.Where(i => i != null && (Path.GetExtension(i.Path) == ".rtf" || Path.GetExtension(i.Path) == ".txt")).ToArray();
@@ -569,15 +582,6 @@ namespace Test
         }
         #endregion
 
-        private async void Image_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            ContentDialog contentDialog = new ContentDialog();
-            contentDialog.Title = "Developed by Onionware from:";
-            ((ContentControl)contentDialog).Content = "Lorenz O.\nand\nJaden N.";
-            contentDialog.PrimaryButtonText = "OK";
-            ContentDialog ErrorDialog = contentDialog;
-            ContentDialogResult contentDialogResult = await ErrorDialog.ShowAsync();
-            ErrorDialog = (ContentDialog)null;
-        }
+
     }
 }
