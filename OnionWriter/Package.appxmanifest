@@ -10,15 +10,15 @@ xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   IgnorableNamespaces="uap mp rescap">
 
 	<Identity
-	  Name="84c71415-d1f8-40d1-ab23-7e964860b71a"
-	  Publisher="CN=OnionWare"
-	  Version="0.5.6.0" />
+	  Name="59944OnionWare.OnionWriter"
+	  Publisher="CN=8CEE4838-CB93-4525-872C-642AB2CD5EB7"
+	  Version="0.5.13.0" />
 
-	<mp:PhoneIdentity PhoneProductId="84c71415-d1f8-40d1-ab23-7e964860b71a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+	<mp:PhoneIdentity PhoneProductId="a59fac14-4f9d-4094-941e-004049013e49" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
 	<Properties>
-		<DisplayName>Test</DisplayName>
-		<PublisherDisplayName>Lorenz</PublisherDisplayName>
+		<DisplayName>OnionWriter</DisplayName>
+		<PublisherDisplayName>Onion-Ware</PublisherDisplayName>
 		<Logo>Assets\StoreLogo.png</Logo>
 	</Properties>
 
