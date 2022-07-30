@@ -1,4 +1,6 @@
 # OnionWriter
+an Easy UWP Texteditor with RTF support
+
 ![Screenshot 2022-07-31 005158](https://user-images.githubusercontent.com/77418440/182002704-a7f361f7-fda4-48d3-8a9c-33ac37daadc1.png)
 
 
