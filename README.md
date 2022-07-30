@@ -12,5 +12,4 @@ an Easy UWP Texteditor with RTF support
 
 
 ![onio](https://user-images.githubusercontent.com/77418440/182003442-6b424e25-b890-4328-b5ea-cb154c574696.png)
-
-FREE SOFTWARE FOR EVERYONE
+Free Software for Everyone
