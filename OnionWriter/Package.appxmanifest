@@ -12,7 +12,7 @@ xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
 	<Identity
 	  Name="59944OnionWare.OnionWriter"
 	  Publisher="CN=8CEE4838-CB93-4525-872C-642AB2CD5EB7"
-	  Version="0.7.10.0" />
+	  Version="1.7.0.0" />
 
 	<mp:PhoneIdentity PhoneProductId="a59fac14-4f9d-4094-941e-004049013e49" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

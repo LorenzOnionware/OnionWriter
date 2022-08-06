@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -46,8 +47,8 @@ namespace Test
             Task.Run(ThemeAutoChange);
         }
 
-        //Variables
-        #region
+
+        #region Variables
         public string abg;
         public bool italic1 = false;
         public bool bold1 = false;
@@ -59,10 +60,13 @@ namespace Test
         public Windows.UI.Xaml.Media.Brush Lightmodebrush2 = new SolidColorBrush(Colors.Black);
         public Windows.UI.Xaml.Media.Brush Lightmodebrush3 = new SolidColorBrush(Colors.DarkGray);
         public bool LightAnable;
+        int selectedmatchindex;
+        MatchCollection matches;
+        bool uppercase = false;
         #endregion
 
-        //themes
-        #region
+
+        # region Themes
         public async Task ThemeAutoChange()
         {
             try
@@ -119,8 +123,8 @@ namespace Test
         }
         #endregion
 
-        //open/save/new file/DragnDrop
-        #region
+
+        #region open/save/new file/DragnDrop
 
         public async Task OpenFile(IStorageFile file)
         {
@@ -293,8 +297,8 @@ namespace Test
         }
         #endregion
 
-        //print
-        #region
+
+        #region Print
 
         private PrintManager printMan;
         private PrintDocument printDoc;
@@ -410,31 +414,31 @@ namespace Test
         }
         private async void PrintTaskCompleted(PrintTask sender, PrintTaskCompletedEventArgs args)
         {
-         
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+
+                if (args.Completion == PrintTaskCompletion.Failed)
                 {
-
-                    if (args.Completion == PrintTaskCompletion.Failed)
-                    {    
-                        await SetBack();
-                        ContentDialog noPrintingDialog = new ContentDialog()
-                        {
-                            Title = "Printing error",
-                            Content = "\nSorry, failed to print.",
-                            PrimaryButtonText = "OK"
-                        };
-                        await noPrintingDialog.ShowAsync();
-                    }
-                    if (args.Completion == PrintTaskCompletion.Canceled){await SetBack();}
+                    await SetBack();
+                    ContentDialog noPrintingDialog = new ContentDialog()
+                    {
+                        Title = "Printing error",
+                        Content = "\nSorry, failed to print.",
+                        PrimaryButtonText = "OK"
+                    };
+                    await noPrintingDialog.ShowAsync();
+                }
+                if (args.Completion == PrintTaskCompletion.Canceled) { await SetBack(); }
 
 
-                });
+            });
         }
-        
+
         #endregion
 
-        //Text Edit
-        #region
+
+        #region Text Edit
         private void Fonts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count == 0)
@@ -515,8 +519,106 @@ namespace Test
         }
         #endregion
 
-        //other shit
-        #region
+
+        #region Search
+
+        private void Increase()
+        {
+            try
+            {
+                if (selectedmatchindex + 1 < matches.Count)
+                {
+                    selectedmatchindex++;
+                    SelectMatch(selectedmatchindex);
+                }
+
+            }
+            catch { }
+        }
+        private void Decrease()
+        {
+            try
+            {
+                if (selectedmatchindex - 1 >= 0)
+                {
+                    selectedmatchindex--;
+                    SelectMatch(selectedmatchindex);
+                }
+            }
+            catch { }
+        }
+        private void SetUppercase()
+        {
+            uppercase = true;
+        }
+        private void SetUppercase2()
+        {
+            uppercase = false;
+        }
+
+
+        private void SearchText()
+        {
+            if (findBox.Text == "")
+            {
+                FindBoxRemoveHighlights();
+            }
+            if (uppercase == true)
+            {
+                string searchTerm = findBox.Text;
+                TxtBox.Document.GetText(TextGetOptions.None, out string text);
+                var regex = new Regex(searchTerm, RegexOptions.None);
+                matches = regex.Matches(text);
+                if (matches.Any())
+                    SelectMatch(0);
+            }
+            else
+            {
+                string searchTerm = findBox.Text;
+                TxtBox.Document.GetText(TextGetOptions.None, out string text);
+                var regex = new Regex(searchTerm, RegexOptions.IgnoreCase);
+                matches = regex.Matches(text);
+                if (matches.Any())
+                    SelectMatch(0);
+            }
+
+
+        }
+
+        private void SelectMatch(int index)
+        {
+            if (matches == null || index >= matches.Count || index < 0) return;
+
+            var match = matches[index];
+            TxtBox.Document.Selection.SetRange(match.Index, match.Index + match.Length);
+            FindBoxHighlightMatches(match.Index, match.Index + match.Length);
+        }
+
+        private void FindBoxHighlightMatches(int e, int a)
+        {
+            FindBoxRemoveHighlights();
+
+            Color highlightBackgroundColor = (Color)App.Current.Resources["SystemColorHighlightColor"];
+            Color highlightForegroundColor = (Color)App.Current.Resources["SystemColorHighlightTextColor"];
+            ITextRange searchRange = TxtBox.Document.GetRange(e, a);
+            searchRange.CharacterFormat.BackgroundColor = highlightBackgroundColor;
+            searchRange.CharacterFormat.ForegroundColor = highlightForegroundColor;
+
+
+        }
+        private void FindBoxRemoveHighlights()
+        {
+            ITextRange documentRange = TxtBox.Document.GetRange(0, TextConstants.MaxUnitCount);
+            SolidColorBrush defaultBackground = TxtBox.Background as SolidColorBrush;
+            SolidColorBrush defaultForeground = TxtBox.Foreground as SolidColorBrush;
+
+            documentRange.CharacterFormat.BackgroundColor = defaultBackground.Color;
+            documentRange.CharacterFormat.ForegroundColor = defaultForeground.Color;
+        }
+        #endregion
+
+
+        #region OTHER SHIT
         private async void Image_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             ContentDialog contentDialog = new ContentDialog();

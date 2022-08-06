@@ -36,7 +36,7 @@
                 </Image.RenderTransform>
             </Image>
             <controls:WrapPanel x:Name="StackOne" VerticalSpacing="5" HorizontalSpacing="10" Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal" Spacing="5" Margin="20,20,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="5" Margin="15,1,0,0">
                     <Button Content="File">
                         <Button.Flyout>
                             <MenuFlyout>
@@ -74,14 +74,14 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
                     </Button>
                 </StackPanel>
-                <ComboBox x:Name="Fonts" Header="Font" Width="200" Margin="15" SelectionChanged="Fonts_SelectionChanged" ManipulationMode="None">
+                <ComboBox x:Name="Fonts" Width="200" Margin="15" SelectionChanged="Fonts_SelectionChanged" ManipulationMode="None">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="x:String">
                             <TextBlock Text="{x:Bind}" FontFamily="{x:Bind}"></TextBlock>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <ComboBox x:Name="FontSize" Header="Font size" SelectedIndex="7" IsEditable="True" VerticalAlignment="Center" SelectionChanged="FontSize_SelectionChanged" TextSubmitted="FontSize_TextSubmitted">
+                <ComboBox x:Name="FontSize" SelectedIndex="7" IsEditable="True" VerticalAlignment="Center" SelectionChanged="FontSize_SelectionChanged" TextSubmitted="FontSize_TextSubmitted">
                     <x:Int32>2</x:Int32>
                     <x:Int32>4</x:Int32>
                     <x:Int32>8</x:Int32>
@@ -96,6 +96,17 @@
                     <x:Int32>48</x:Int32>
                     <x:Int32>72</x:Int32>
                 </ComboBox>
+                <TextBox x:Name="findBox" Width="150" Height="20" PlaceholderText="Enter search text" Margin="10,0,0,0"
+                TextChanged="{x:Bind SearchText}"/>
+                
+                <Button Click="{x:Bind Increase}">
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE70E;"/>
+                </Button>
+                <Button Click="{x:Bind Decrease}">
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE70D;"/>
+                </Button>
+                <CheckBox Content="Note Spelling" Checked="{x:Bind SetUppercase}" Unchecked="{x:Bind SetUppercase2}"></CheckBox>
+
             </controls:WrapPanel>
 
         </Grid>
